@@ -1,0 +1,37 @@
+name: training-1
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+    inputs:
+      coucou:
+        description: 'Saisie quelque chose :)'
+        required: false 
+        type: string
+        default: 'Oujda'
+
+  push:
+    branches: [ main ]
+jobs:
+  say-hello:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, ${{ github.event.inputs.coucou }}
+        
+      - name: afficher les fichiers
+        run: ls /
+        
+  display-files:
+    needs: say-hello
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: creer fichier
+        run: touch elgourmat.yml
+      - name: afficher
+        run: ls .
